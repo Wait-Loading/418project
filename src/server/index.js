@@ -46,6 +46,11 @@ app.get('/getUser', async (req, res) => {
         res.status(500).send(error);
     }
 });
+// Start the server
+const PORT = 9000;
+app.listen(PORT, () => {
+    console.log(`Server Started at ${PORT}`);
+});
 // Event listeners for MongoDB connection
 database.on('error', (error) => console.log(error));
 database.once('connected', () => console.log('Database Connected'));

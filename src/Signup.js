@@ -3,11 +3,11 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 function Signup({ onSignup }) {
-  let [User_id, Set_User_id] = useState('');
+  let [username, Set_username] = useState('');
   let [password, set_Password] = useState('');
   let [firstName, Set_First_Name] = useState('');
   let [lastName, Set_Last_Name] = useState('');
-  const signupValues = { firstName, lastName, User_id, password };
+  const signupValues = { firstName, lastName, username, password };
   const navigate = useNavigate();
 
   // Provide a default function for onSignup if it's not provided
@@ -58,8 +58,8 @@ function Signup({ onSignup }) {
               type="text"
               className="form-control"
               id="userId"
-              value={User_id}
-              onChange={(e) => Set_User_id(e.target.value)}
+              value={username}
+              onChange={(e) => Set_username(e.target.value)}
             />
           </div>
           <div className="form-group">

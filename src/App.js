@@ -1,29 +1,23 @@
-import React, { useState } from 'react';
-import { useRoutes, Navigate } from 'react-router-dom';
-import LoginPage from './Login';
-import SignupPage from './Signup';
-//import Home from './Home'; // Assuming Home is in the same directory
-import './App.css';
+// App.js
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import NavBar from './Navbar'; // Make sure the path to NavBar.js is correct
+import Home from './Home';
+import Login from './Login';
+import Signup from './Signup';
 
-function App() {
-  const [isLoggedIn, setLoggedIn] = useState(false);
-
-  const handleLogin = () => {
-    setLoggedIn(true);
-  };
-
-  const handleSignup = () => {
-    setLoggedIn(true);
-  };
-
+const App = () => {
   return (
-    <div className="App">
-      
-      <div className="content">
-        
-      </div>
+    <div style={{ marginTop: '3em' }}>
+      <NavBar />
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/Login" element={<Login />} />
+        <Route path="/Signup" element={<Signup />} />
+        <Route path="/Home" element={<Home />} />
+      </Routes>
     </div>
   );
-}
+};
 
 export default App;

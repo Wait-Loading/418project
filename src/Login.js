@@ -6,9 +6,9 @@
 
  
         function Login({ onLogin }) {
-            let [User_id, Set_User_id] = useState('');
+            let [username, Set_username] = useState('');
             let [password, set_Password] = useState('');
-            const loginValues = { User_id, password };
+            const loginValues = { username, password };
             const navigate = useNavigate();
              // Provide a default function for onLogin if it's not provided
 
@@ -22,7 +22,7 @@
                       alert('Login Successful');
                       onLogin();
                       localStorage.clear()
-                      localStorage.setItem('loggedInUser', res.data.User_id)
+                      localStorage.setItem('loggedInUser', res.data.username)
                       navigate('/Home');
                     } else {
                       alert('Wrong Credentials');
@@ -44,8 +44,8 @@
                     type="text"
                     className="form-control"
                     id="userId"
-                    value={User_id}
-                    onChange={(e) => Set_User_id(e.target.value)}
+                    value={username}
+                    onChange={(e) => Set_username(e.target.value)}
                     />
                 </div>
                 <div className="form-group">

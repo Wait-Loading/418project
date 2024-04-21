@@ -38,9 +38,9 @@ app.post('/createUser', async (req, res) => {
 });
 // API endpoint to get a user by User_id and password
 app.get('/getUser', async (req, res) => {
-    const { User_id, password } = req.query;
+    const { username, password } = req.query;
     try {
-        const user = await User.findOne({ User_id, password });
+        const user = await User.findOne({ username, password });
         res.send(user);
     } catch (error) {
         res.status(500).send(error);

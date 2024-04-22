@@ -1,5 +1,5 @@
 import React from 'react';
-import backgroundImage from './R.png'; // Make sure to replace with the actual path to your image file
+import backgroundImage from './R.png'; 
 import { useNavigate, Link } from 'react-router-dom';
 
 const HomePage = () => {
@@ -8,9 +8,9 @@ const HomePage = () => {
 
   const backgroundStyle = {
     backgroundImage: `url(${backgroundImage})`,
-    backgroundSize: 'cover',
+    backgroundSize: 'cover', 
     backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center',
+    backgroundPosition: 'cover',
     height: '100vh',
     width: '100vw',
     overflow: 'hidden' // Prevent scrolling

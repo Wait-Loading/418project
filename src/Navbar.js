@@ -2,7 +2,8 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Navbar, Nav, Button } from 'react-bootstrap';
-
+import './Navbar.css';
+ 
 const NavBar = () => {
   const loggedInUser = localStorage.getItem('loggedInUser')
   const navigate = useNavigate();
@@ -13,11 +14,11 @@ const NavBar = () => {
   };
 
   return (
-    <Navbar bg="light" expand="lg" className="mb-3" style={{ position: 'sticky', top: 1 }}>
+    <Navbar bg="light" expand="lg" className="mb-3">
       <Navbar.Brand as={Link} to="/Home">Online Journal</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto">
+      <Navbar.Collapse id="basic-navbar-nav" className="justify-content-between">
+        <Nav>
           { loggedInUser && 
             <Nav.Link>Welcome, {loggedInUser}</Nav.Link>
           }

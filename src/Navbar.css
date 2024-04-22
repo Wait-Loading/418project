@@ -1,0 +1,16 @@
+/* Navbar.css */
+/* Navbar.css */
+.navbar {
+    margin: 0 auto; /* Center the navbar */
+    max-width: 99%; /* Set the maximum width to 90% of the screen width */
+  }
+  
+  .navbar-brand {
+    font-size: 1.5rem;
+  }
+  
+  .nav-link {
+    font-size: 1.2rem;
+  }
+ 
+  

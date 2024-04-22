@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import backgroundImage from './R.png'; 
 import { useNavigate, Link } from 'react-router-dom';
+import axios from 'axios';
+
 
 const HomePage = () => {
   const loggedInUser = localStorage.getItem('loggedInUser')
@@ -8,6 +10,8 @@ const HomePage = () => {
   const [selectedDate, setSelectedDate] = useState({ day: '', month: '', year: '' });
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
+  const cdate = new Date();
+  axios.get('http://localhost:9000/getJournals', { cdate });
 
   const backgroundStyle = {
     backgroundImage: `url(${backgroundImage})`,
@@ -114,6 +118,7 @@ const HomePage = () => {
             <tbody id="calendarBody">
             </tbody>
           </table>
+          <button className="btn btn-secondary mt-3" onClick={() => navigate('/signup')}>New Journal for today</button>
         </div>
 
          { loggedInUser == null &&

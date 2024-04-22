@@ -23,7 +23,17 @@ app.post('/createJournal', async (req, res) => {
     } catch (error) {
         res.status(500).send(error);
     }
-})
+});
+
+
+app.get('/getJournals', async (req, res) => {
+    try {
+        const journalList = await Journal.find({}, {});
+        res.send(journalList);
+    } catch (error) {
+        res.status(500).send(error);
+    }
+});
 
 
 app.get('/getUsers', async (req, res) => {

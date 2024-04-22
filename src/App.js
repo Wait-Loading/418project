@@ -6,22 +6,21 @@ import Home from './Home';
 import Login from './Login';
 import Signup from './Signup';
 import JournalPage from './JournalPage';
-import { Link, useNavigate, useLocation } from 'react-router-dom';
-
-
-
+import { useLocation } from 'react-router-dom';
 
 const App = () => {
   const location = useLocation();
+  const hideOnRoutes = ['/login', '/signup'];
+
   return (
-    <div style={{ marginTop: '1em' }}>
-      <NavBar/>
+    <div style={{ marginTop: '5em' }}>
+      {!hideOnRoutes.includes(location.pathname) && <NavBar />}
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/Login" element={<Login />} />
-        <Route path="/Signup" element={<Signup />} />
-        <Route path="/Home" element={<Home />} />
-        <Route path="/JournalPage" element={<JournalPage />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/home" element={<Home />} />
+        <Route path="/journalpage" element={<JournalPage />} />
       </Routes>
     </div>
   );

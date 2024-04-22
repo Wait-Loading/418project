@@ -1,39 +1,45 @@
 /* Navbar.css */
-/* Navbar.css */
 .navbar {
-    margin: 0 auto; /* Center the navbar */
-    max-width: 99%; /* Set the maximum width to 90% of the screen width */
-    background-color: #333;
-    overflow: hidden;
-  }
-  
-  .navbar-brand {
-    font-size: 1.5rem;
-  }
-  
-  .nav-link {
-    font-size: 1.2rem;
-  }
-  .navbar ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .navbar li {
-    float: left;
-  }
-  
-  .navbar li a, .navbar li button {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-  }
-  
-  .navbar li a:hover, .navbar li button:hover {
-    background-color: #111;
-  }
- 
-  
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  padding: 0 30px;
+  margin: 0 auto; /* Center the navbar */
+  max-width: 99%; /* Set the maximum width to 90% of the screen width */
+  background-color: #fff;
+  box-shadow: 0px 14px 28px rgba(0,0,0,0.25), 
+              0px 10px 10px rgba(0,0,0,0.22);
+  font-family: 'Roboto', sans-serif;
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #ff5e62;
+}
+
+.nav-link {
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.navbar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+.navbar li {
+  margin-left: 20px;
+}
+
+.navbar li a, .navbar li button {
+  color: #333;
+  text-decoration: none;
+}
+
+.navbar li a:hover, .navbar li button:hover {
+  color: #ff5e62;
+}

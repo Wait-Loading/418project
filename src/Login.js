@@ -35,6 +35,7 @@
               };
             return(
                 <div className="Login">
+                    <div class="login-body">
                     <div className="Login_field">
                     <h2 className="header">Login Page</h2>
                     <form onSubmit={handleLogin}>
@@ -61,6 +62,7 @@
                 <button type="submit" className="btn btn-primary">Submit</button>
                     </form>
                     <button className="btn btn-secondary mt-3" onClick={() => navigate('/signup')}>Go to Signup</button>
+                    </div>
                     </div>
                 </div>
             );

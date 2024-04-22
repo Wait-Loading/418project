@@ -75,32 +75,38 @@ const HomePage = () => {
     generateCalendar();
     updateCurrentDate();
   }, []);
-
   return (
     <div style={backgroundStyle}>
-            <div style={floatingBoxStyle}>
-      <div className="welcome-message">
-        <h2>Welcome to Our Website</h2>
-        <p>Today is <span id="currentDate"></span>.</p>
-      </div>
+      <div style={floatingBoxStyle}>
+        <div className="welcome-message">
+          <h2>Welcome to Our Website</h2>
+          <p>Today is <span id="currentDate"></span>.</p>
+        </div>
 
-      <div className="calendar">
-        <table>
-          <thead>
-            <tr>
-              <th>Sun</th>
-              <th>Mon</th>
-              <th>Tue</th>
-              <th>Wed</th>
-              <th>Thu</th>
-              <th>Fri</th>
-              <th>Sat</th>
-            </tr>
-          </thead>
-          <tbody id="calendarBody">
-          </tbody>
-        </table>
-      </div>
+        <div className="calendar">
+          <table>
+            <thead>
+              <tr>
+                <th>Sun</th>
+                <th>Mon</th>
+                <th>Tue</th>
+                <th>Wed</th>
+                <th>Thu</th>
+                <th>Fri</th>
+                <th>Sat</th>
+              </tr>
+            </thead>
+            <tbody id="calendarBody">
+            </tbody>
+          </table>
+        </div>
+
+         { loggedInUser == null &&
+            <p className="text-center">
+               <button className="btn btn-secondary mt-3" onClick={() => navigate('/signup')}>Go to Signup</button>
+              Already have an account? <Link to="/login" className="btn btn-link">Login</Link>
+            </p>
+          }
       </div>
     </div>
   );

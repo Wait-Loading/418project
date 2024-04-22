@@ -1,16 +1,22 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { Navbar, Nav, Button } from 'react-bootstrap';
 import './Navbar.css';
 
 const NavBar = () => {
   const loggedInUser = localStorage.getItem('loggedInUser')
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleSignOut = () => {
     localStorage.removeItem('loggedInUser');
-    navigate('/login');
+    navigate('/Login');
   };
+
+  // Don't render the Navbar on the login or sign in page
+  if (location.pathname === '/Login' || location.pathname === '/Signup') {
+    return null;
+  }
 
   return (
     <Navbar bg="light" expand="lg" className="mb-3">

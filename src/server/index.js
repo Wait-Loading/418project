@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const User = require('./UserSchema');
+const Journal = require('./JournalSchema');
 
 
 const app = express();
@@ -13,10 +14,21 @@ const mongoString = "mongodb+srv://jayp13161:password180@cluster0.jzssdvj.mongod
 mongoose.connect(mongoString);
 const database = mongoose.connection;
 
+app.post('/createJournal', async (req, res) => {
+    try {
+        const journal = new Journal(req.body);
+        await journal.save();
+        console.log(journal);
+        res.send(journal);
+    } catch (error) {
+        res.status(500).send(error);
+    }
+})
+
 
 app.get('/getUsers', async (req, res) => {
     try {
-        const userList = await User.find({}, { });
+        const userList = await User.find({}, {});
         //console.log(userList);
         // Print each user's details separately
         res.send(userList);

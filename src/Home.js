@@ -36,13 +36,13 @@ const HomePage = () => {
       var lastDay = new Date(year, month + 1, 0);
       var firstDayIndex = firstDay.getDay();
       var lastDate = lastDay.getDate();
-
+    
       var calendarBody = document.getElementById("calendarBody");
       var date = 1;
-
+    
       // Clear previous calendar
       calendarBody.innerHTML = "";
-
+    
       // Create rows and cells for the calendar
       for (var i = 0; i < 6; i++) {
         var row = calendarBody.insertRow();
@@ -54,7 +54,11 @@ const HomePage = () => {
             break;
           } else {
             var cell = row.insertCell();
-            cell.innerHTML = date;
+            var btn = document.createElement("button"); // Create a button element
+            btn.innerHTML = date; // Set the button text to the date
+            btn.classList.add("date-button"); // Add a class for styling
+            btn.onclick = function() { alert('Clicked date: ' + this.innerHTML); }; // Add an onclick event
+            cell.appendChild(btn); // Append the button to the cell
             if (date === currentDate.getDate()) {
               cell.classList.add("today");
             }
@@ -63,6 +67,8 @@ const HomePage = () => {
         }
       }
     }
+    
+    
 
     // Update current date in welcome message
     function updateCurrentDate() {

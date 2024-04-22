@@ -3,6 +3,7 @@
 
         import { useNavigate } from 'react-router-dom';
         import './Login.css';
+        import './Navbar.css';
 
  
         function Login({ onLogin }) {

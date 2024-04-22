@@ -1,4 +1,4 @@
-body {
+ body {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -8,7 +8,11 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+
+
 .Login {
+    align-items: center;
+
     width: 300px;
     padding: 30px;
     background: #fff;

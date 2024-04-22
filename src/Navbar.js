@@ -14,7 +14,7 @@ const NavBar = () => {
   };
 
   // Don't render the Navbar on the login or sign in page
-  if (location.pathname === '/Login' || location.pathname === '/Signup') {
+  if (location.pathname === '/Login' || location.pathname === '/Signup' ||  location.pathname === '/') {
     return null;
   }
 

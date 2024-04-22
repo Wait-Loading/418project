@@ -25,6 +25,7 @@ app.post('/createJournal', async (req, res) => {
     }
 });
 
+
 app.get('/getJournals', async (req, res) => {
     try {
         const journalList = await Journal.find({}, {});

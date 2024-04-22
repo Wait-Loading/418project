@@ -35,7 +35,7 @@ function Signup({ onSignup }) {
           <div className="form-group">
             <label htmlFor="firstName">First Name:</label>
             <input
-              type="text"
+              required type="text"
               className="form-control"
               id="firstName"
               value={firstName}
@@ -45,7 +45,7 @@ function Signup({ onSignup }) {
           <div className="form-group">
             <label htmlFor="lastName">Last Name:</label>
             <input
-              type="text"
+              required type="text"
               className="form-control"
               id="lastName"
               value={lastName}
@@ -55,7 +55,7 @@ function Signup({ onSignup }) {
           <div className="form-group">
             <label htmlFor="userId">User ID:</label>
             <input
-              type="text"
+               required type="required text"
               className="form-control"
               id="userId"
               value={username}
@@ -65,7 +65,7 @@ function Signup({ onSignup }) {
           <div className="form-group">
             <label htmlFor="password">Password:</label>
             <input
-              type="password"
+              required type="password"
               className="form-control"
               id="password"
               value={password}

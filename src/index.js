@@ -8,6 +8,7 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import JournalPage from './JournalPage';
 
+
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>

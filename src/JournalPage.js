@@ -56,7 +56,7 @@ function JournalPage() {
             <h1>Journal Page</h1>
             <form>
                 <section>
-                    <label required for="journalTitle">{"Journal Title:"+ date.year}
+                    <label required for="journalTitle">{"Journal Title:"}
                         <input type="text" required
                             value={journalTitle}
                             onChange={handleJournalTitle}

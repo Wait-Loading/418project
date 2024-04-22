@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import backgroundImage from './R.png'; 
+import backgroundImage from './R.png';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 
@@ -10,12 +10,12 @@ const HomePage = () => {
   const [selectedDate, setSelectedDate] = useState({ day: '', month: '', year: '' });
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
-  const cdate = new Date();
-  axios.get('http://localhost:9000/getJournals', { cdate });
+  const [checkIfJournalToday, setJournalState] = useState(null);
+  //axios.get('http://localhost:9000/getJournals', { cdate });
 
   const backgroundStyle = {
     backgroundImage: `url(${backgroundImage})`,
-    backgroundSize: 'cover', 
+    backgroundSize: 'cover',
     backgroundRepeat: 'no-repeat',
     backgroundPosition: 'cover',
     height: '100vh',
@@ -40,13 +40,13 @@ const HomePage = () => {
       var lastDay = new Date(year, month + 1, 0);
       var firstDayIndex = firstDay.getDay();
       var lastDate = lastDay.getDate();
-    
+
       var calendarBody = document.getElementById("calendarBody");
       var date = 1;
-    
+
       // Clear previous calendar
       calendarBody.innerHTML = "";
-    
+
       // Create rows and cells for the calendar
       for (var i = 0; i < 6; i++) {
         var row = calendarBody.insertRow();
@@ -61,7 +61,7 @@ const HomePage = () => {
             var btn = document.createElement("button"); // Create a button element
             btn.innerHTML = date; // Set the button text to the date
             btn.classList.add("date-button"); // Add a class for styling
-            btn.onclick = function() { 
+            btn.onclick = function () {
               setSelectedDate({ day: this.innerHTML, month: month, year: year }); // Update selectedDate state
               localStorage.setItem('SelectedDate', selectedDate);
               navigate('/JournalPage');
@@ -76,8 +76,36 @@ const HomePage = () => {
       }
     }
 
+    //filter journals.
+    async function getTodayJournal() {
+      try {
+        const journalResponse = await axios.get('http://localhost:9000/getJournals');
+        const journalData = journalResponse.data;
+        const currentUserID = localStorage.getItem('loggedInUser');
+
+        const currentDate = new Date();
+
+        await journalData.map(async journal => {
+          if (journal.creator_id === currentUserID) {
+            const journalDate = journal.journalDate;
+            const jourDate = new Date(journalDate);
+            if (jourDate.getFullYear() === currentDate.getFullYear()
+              && jourDate.getMonth() === currentDate.getMonth()
+              && jourDate.getDate() === currentDate.getDate()) {
+              setJournalState(journal);
+            }
+          }
+        });
+      } catch (error) {
+        alert('error with fetching todays journal');
+      }
+    }
+
+
+
     // Generate calendar for selected year and month
     generateCalendar(selectedYear, selectedMonth);
+    getTodayJournal();
   }, [selectedYear, selectedMonth]);
 
   return (
@@ -118,15 +146,19 @@ const HomePage = () => {
             <tbody id="calendarBody">
             </tbody>
           </table>
-          <button className="btn btn-secondary mt-3" onClick={() => navigate('/signup')}>New Journal for today</button>
+
+          {checkIfJournalToday === null &&
+            <button className="btn btn-secondary mt-3" onClick={() => navigate('/signup')}>New Journal for today</button>
+
+          }
         </div>
 
-         { loggedInUser == null &&
-            <p className="text-center">
-               <button className="btn btn-secondary mt-3" onClick={() => navigate('/signup')}>Go to Signup</button>
-              Already have an account? <Link to="/login" className="btn btn-link">Login</Link>
-            </p>
-          }
+        {loggedInUser == null &&
+          <p className="text-center">
+            <button className="btn btn-secondary mt-3" onClick={() => navigate('/signup')}>Go to Signup</button>
+            Already have an account? <Link to="/login" className="btn btn-link">Login</Link>
+          </p>
+        }
       </div>
     </div>
   );

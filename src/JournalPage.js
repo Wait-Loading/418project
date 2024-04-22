@@ -9,10 +9,9 @@ function JournalPage() {
 
     const [journalTitle, setJournalTitle] = useState('');
     const [journalText, setJournalText] = useState('');
-    const [journalDate, setCurrentDate] = useState('');
     const [creator_id, setUserID] = useState('');
     const navigate = useNavigate();
-    const date =  localStorage.getItem('SelectedDate');
+    const date = localStorage.getItem('SelectedDate');
 
     const handleJournalTitle = (event) => {
         setJournalTitle(event.target.value);
@@ -20,11 +19,6 @@ function JournalPage() {
 
     const handleJournalText = (event) => {
         setJournalText(event.target.value);
-    };
-
-    const handleCurrentDate = () => {
-        const today = new Date();
-        setCurrentDate(today);
     };
 
     const handleUserID = () => {
@@ -41,13 +35,11 @@ function JournalPage() {
         setJournalTitle('');
         setJournalText('');
         setUserID('');
-        setCurrentDate('');
         navigate('/Home');
     }
 
     useEffect(() => {
         handleUserID();
-        handleCurrentDate();
     });
 
 
@@ -73,7 +65,7 @@ function JournalPage() {
                     </label>
                 </section>
             </form>
-            <button type="button" onClick={(event) => handleCreateJournal(event, journalTitle, journalText, creator_id, journalDate)}>
+            <button type="button" onClick={(event) => handleCreateJournal(event, journalTitle, journalText, creator_id, date)}>
                 Submit Journal
             </button>
         </div>

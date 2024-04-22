@@ -28,7 +28,19 @@ app.post('/createJournal', async (req, res) => {
 
 app.get('/getJournals', async (req, res) => {
     try {
-        const journalList = await Journal.find({}, {});
+        const { title, year, month, day } = req.query;
+        let query = {};
+
+        if (title) {
+            query.journalTitle = title;
+        }
+
+        if (year && month && day) {
+            const date = new Date(year, month - 1, day); // months are 0-indexed in JavaScript
+            query.journalDate = date;
+        }
+
+        const journalList = await Journal.find(query);
         res.send(journalList);
     } catch (error) {
         res.status(500).send(error);

@@ -1,10 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import backgroundImage from './R.png'; 
 import { useNavigate, Link } from 'react-router-dom';
 
 const HomePage = () => {
   const loggedInUser = localStorage.getItem('loggedInUser')
   const navigate = useNavigate();
+  const [selectedDate, setSelectedDate] = useState({ day: '', month: '', year: '' });
+  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
+  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
 
   const backgroundStyle = {
     backgroundImage: `url(${backgroundImage})`,
@@ -28,10 +31,7 @@ const HomePage = () => {
   };
 
   useEffect(() => {
-    function generateCalendar() {
-      var currentDate = new Date();
-      var year = currentDate.getFullYear();
-      var month = currentDate.getMonth();
+    function generateCalendar(year, month) {
       var firstDay = new Date(year, month, 1);
       var lastDay = new Date(year, month + 1, 0);
       var firstDayIndex = firstDay.getDay();
@@ -57,9 +57,13 @@ const HomePage = () => {
             var btn = document.createElement("button"); // Create a button element
             btn.innerHTML = date; // Set the button text to the date
             btn.classList.add("date-button"); // Add a class for styling
-            btn.onclick = function() { alert('Clicked date: ' + this.innerHTML); }; // Add an onclick event
+            btn.onclick = function() { 
+              setSelectedDate({ day: this.innerHTML, month: month, year: year }); // Update selectedDate state
+              localStorage.setItem('SelectedDate', selectedDate);
+              navigate('/JournalPage');
+            }; // Add an onclick event
             cell.appendChild(btn); // Append the button to the cell
-            if (date === currentDate.getDate()) {
+            if (date === new Date().getDate() && year === new Date().getFullYear() && month === new Date().getMonth()) {
               cell.classList.add("today");
             }
             date++;
@@ -67,26 +71,31 @@ const HomePage = () => {
         }
       }
     }
-    
-    
 
-    // Update current date in welcome message
-    function updateCurrentDate() {
-      var currentDate = new Date();
-      var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-      document.getElementById("currentDate").textContent = currentDate.toLocaleDateString('en-US', options);
-    }
+    // Generate calendar for selected year and month
+    generateCalendar(selectedYear, selectedMonth);
+  }, [selectedYear, selectedMonth]);
 
-    // Generate calendar and update current date on page load
-    generateCalendar();
-    updateCurrentDate();
-  }, []);
   return (
     <div style={backgroundStyle}>
       <div style={floatingBoxStyle}>
         <div className="welcome-message">
           <h2>Welcome to Our Website</h2>
           <p>Today is <span id="currentDate"></span>.</p>
+        </div>
+
+        <div>
+          <label>Year: </label>
+          <select value={selectedYear} onChange={(e) => setSelectedYear(e.target.value)}>
+            {/* Generate options for years */}
+            {[...Array(new Date().getFullYear() - 1970 + 1)].map((_, i) => <option key={i} value={i + 1970}>{i + 1970}</option>)}
+          </select>
+
+          <label>Month: </label>
+          <select value={selectedMonth} onChange={(e) => setSelectedMonth(e.target.value)}>
+            {/* Generate options for months */}
+            {['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'].map((month, i) => <option key={i} value={i}>{month}</option>)}
+          </select>
         </div>
 
         <div className="calendar">

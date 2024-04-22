@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import './JournalPage.css';
+import './Navbar.css';
 
 
 function JournalPage() {
@@ -11,6 +12,7 @@ function JournalPage() {
     const [journalDate, setCurrentDate] = useState('');
     const [creator_id, setUserID] = useState('');
     const navigate = useNavigate();
+    const date =  localStorage.getItem('SelectedDate');
 
     const handleJournalTitle = (event) => {
         setJournalTitle(event.target.value);
@@ -54,7 +56,7 @@ function JournalPage() {
             <h1>Journal Page</h1>
             <form>
                 <section>
-                    <label required for="journalTitle">Journal Title:
+                    <label required for="journalTitle">{"Journal Title:"+ date.year}
                         <input type="text" required
                             value={journalTitle}
                             onChange={handleJournalTitle}

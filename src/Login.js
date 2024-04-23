@@ -2,6 +2,7 @@
         import React, { useState } from 'react';
 
         import { useNavigate } from 'react-router-dom';
+
         import './Login.css';
         import './Navbar.css';
 
@@ -14,6 +15,15 @@
              // Provide a default function for onLogin if it's not provided
 
   onLogin = onLogin || function() { console.log('onLogin not provided'); };
+           const style = {
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  height: "100vh",
+  margin: 0,
+  background: "linear-gradient(to right, #ff9966, #ff5e62)",
+  fontFamily: "'Roboto', sans-serif"
+};
 
             const handleLogin = (event) => {
                 event.preventDefault();

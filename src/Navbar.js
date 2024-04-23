@@ -19,6 +19,7 @@ const NavBar = () => {
   }
 
   return (
+    <div className='navbar'>
     <Navbar bg="light" expand="lg" className="mb-3">
       <Navbar.Brand as={Link} to="/Home">Online Journal</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -35,6 +36,7 @@ const NavBar = () => {
         }
       </Navbar.Collapse>
     </Navbar>
+    </div>
   );
 };
 

@@ -10,8 +10,8 @@ function JournalPage() {
     const [journalTitle, setJournalTitle] = useState('');
     const [journalText, setJournalText] = useState('');
     const [creator_id, setUserID] = useState('');
+    const [date, setDate] = useState('');
     const navigate = useNavigate();
-    const date = localStorage.getItem('SelectedDate');
 
     const handleJournalTitle = (event) => {
         setJournalTitle(event.target.value);
@@ -26,6 +26,11 @@ function JournalPage() {
         setUserID(user_id);
     };
 
+    const handleDate = () => {
+        const today = new Date();
+        setDate(today);
+    }
+
     const handleCreateJournal = (event, journalTitle, journalText, creator_id, journalDate) => {
         event.preventDefault();
         axios.post('http://localhost:9000/createJournal', { journalTitle, journalText, creator_id, journalDate })
@@ -35,11 +40,13 @@ function JournalPage() {
         setJournalTitle('');
         setJournalText('');
         setUserID('');
+        setDate('');
         navigate('/Home');
     }
 
     useEffect(() => {
         handleUserID();
+        handleDate();
     });
 
 

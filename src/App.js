@@ -6,6 +6,7 @@ import Home from './Home';
 import Login from './Login';
 import Signup from './Signup';
 import JournalPage from './JournalPage';
+import ViewJournalPage from './ViewJournalPage';
 import { useLocation } from 'react-router-dom';
 
 const App = () => {
@@ -21,6 +22,7 @@ const App = () => {
         <Route path="/signup" element={<Signup />} />
         <Route path="/home" element={<Home />} />
         <Route path="/journalpage" element={<JournalPage />} />
+        <Route path='/journal/:journal_id' element={<ViewJournalPage />} />
       </Routes>
     </div>
   );

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import './ViewJournalPage.css'; // Make sure the path to ViewJournalPage.css is correct
 
 function ViewJournalPage() {
 
@@ -25,9 +26,9 @@ function ViewJournalPage() {
     });
 
     return (
-        <div>
-            <h1>{journal.journalTitle}</h1>
-            <p>
+        <div className="journal-page">
+            <h1 className="journal-title">{journal.journalTitle}</h1>
+            <p className="journal-text">
                 {journal.journalText}
             </p>
         </div>

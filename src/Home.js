@@ -107,6 +107,9 @@ const HomePage = () => {
   }, [selectedYear, selectedMonth]);
 
   const handleJournalPage = () => {
+    const currentDate = new Date();
+    const selectedFullDate2 = new Date(selectedDate.year, selectedDate.month, selectedDate.day);
+  
     const selectFullDate = selectedDate.month + "/" + selectedDate.day + "/" + selectedDate.year;
     async function getJournalOfTheDay() {
       const currentUserID = localStorage.getItem('loggedInUser');
@@ -133,9 +136,18 @@ const HomePage = () => {
         } else {
           const journal = currentJournal.pop();
           const journalID = journal._id;
-          navigate(`/journal/${journalID}`);
+          if (  
+            currentDate.getFullYear() === selectedFullDate2.getFullYear() &&
+            currentDate.getMonth() === selectedFullDate2.getMonth() &&
+            currentDate.getDate() === selectedFullDate2.getDate()
+          ) 
+          {
+            navigate('/journalpage');
+          }
+          else{
+          navigate(`/journal/${journalID}`);}
         }
-
+        
       } catch (error) {
         alert('error with fetching journals');
       }
@@ -185,6 +197,7 @@ const HomePage = () => {
           {checkIfJournalToday === null &&
             <button className="btn btn-secondary mt-3" onClick={() => navigate('/journalpage')}>New Journal for today</button>
           }
+          
         </div>
 
         {loggedInUser == null &&

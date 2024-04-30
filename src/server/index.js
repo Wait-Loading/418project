@@ -3,6 +3,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const User = require('./UserSchema');
 const Journal = require('./JournalSchema');
+const JournalViewPerms = require('./JournalViewPermsSchema');
 
 
 const app = express();
@@ -13,6 +14,43 @@ app.use(cors());
 const mongoString = "mongodb+srv://jayp13161:password180@cluster0.jzssdvj.mongodb.net/Project_Journal";
 mongoose.connect(mongoString);
 const database = mongoose.connection;
+
+app.post('/inviteToJournal', async (req, res) => {
+    try {
+        const view = new JournalViewPerms(req.body);
+        await view.save();
+        res.send(view);
+    } catch (error) {
+        res.status(500).send(error);
+    }
+});
+
+app.get('/getJournalViewers', async (req, res) => {
+    try {
+        const viewList = await JournalViewPerms.find({});
+        res.send(viewList);
+    } catch (error) {
+        res.status(500).send(error);
+    }
+});
+
+app.put('/editJournalViewers/:id', async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const journalView = await JournalViewPerms.findById(id);
+        if (!journalView) {
+            return res.status(404).send({ error: "Journal Not Found" });
+        }
+
+        journalView.viewers = req.body;
+        await journalView.save();
+        res.send(journalView);
+    } catch (error) {
+        res.status(500).send(error);
+    }
+});
+
 
 app.post('/createJournal', async (req, res) => {
     try {
@@ -61,6 +99,15 @@ app.get('/getJournals', async (req, res) => {
         }
 
         const journalList = await Journal.find(query);
+        res.send(journalList);
+    } catch (error) {
+        res.status(500).send(error);
+    }
+});
+
+app.get('/getAllJournals', async (req, res) => {
+    try {
+        const journalList = await Journal.find({});
         res.send(journalList);
     } catch (error) {
         res.status(500).send(error);

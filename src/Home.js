@@ -3,7 +3,6 @@ import backgroundImage from './R.png';
 import { useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 
-
 const HomePage = () => {
   const loggedInUser = localStorage.getItem('loggedInUser')
   const navigate = useNavigate();
@@ -11,6 +10,7 @@ const HomePage = () => {
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
   const [checkIfJournalToday, setJournalState] = useState(null);
+  const [journalList, setJournalList] = useState([]);
 
   const backgroundStyle = {
     backgroundImage: `url(${backgroundImage})`,
@@ -64,8 +64,6 @@ const HomePage = () => {
 
               setSelectedDate({ day: this.innerHTML, month: month, year: year }); // Update selectedDate state
               localStorage.setItem('SelectedDate', selectedDate);
-              //navigate('/JournalPage');
-
             }; // Add an onclick event
             cell.appendChild(btn); // Append the button to the cell
             if (date === new Date().getDate() && year === new Date().getFullYear() && month === new Date().getMonth()) {
@@ -82,6 +80,7 @@ const HomePage = () => {
       try {
         const journalResponse = await axios.get('http://localhost:9000/getJournals');
         const journalData = journalResponse.data;
+        setJournalList(journalData);
         const currentUserID = localStorage.getItem('loggedInUser');
 
         const currentDate = new Date();
@@ -107,53 +106,32 @@ const HomePage = () => {
   }, [selectedYear, selectedMonth]);
 
   const handleJournalPage = () => {
-    const currentDate = new Date();
-    const selectedFullDate2 = new Date(selectedDate.year, selectedDate.month, selectedDate.day);
-  
     const selectFullDate = selectedDate.month + "/" + selectedDate.day + "/" + selectedDate.year;
-    async function getJournalOfTheDay() {
-      const currentUserID = localStorage.getItem('loggedInUser');
-      try {
-        const journalResponse = await axios.get('http://localhost:9000/getJournals');
-        const journalData = journalResponse.data;
-        const currentJournal = [];
-        await journalData.map(async journal => {
-          if (journal.creator_id === currentUserID) {
-            const journalDate = journal.journalDate;
-            const jourDate = new Date(journalDate);
-            const jourDay = jourDate.getDate();
-            const jourMonth = jourDate.getMonth();
-            const jourYear = jourDate.getFullYear();
-            const jourFullDate = `${jourMonth}/${jourDay}/${jourYear}`;
-            if (selectFullDate === jourFullDate) {
-              currentJournal.push(journal);
-            }
+    if (selectFullDate !== "//") {
+      const currentJournal = [];
+      Promise.all(journalList.map(async journal => {
+        if (journal.creator_id === loggedInUser) {
+          const journalDate = journal.journalDate;
+          const jDate = new Date(journalDate);
+          const jDay = jDate.getDate();
+          const jMonth = jDate.getMonth();
+          const jYear = jDate.getFullYear();
+          const jFullDate = `${jMonth}/${jDay}/${jYear}`;
+          if (selectFullDate === jFullDate) {
+            currentJournal.push(journal);
           }
-        });
-
-        if (currentJournal.length === 0) {
-          alert("No Journals were recoreded on this day.");
-        } else {
-          const journal = currentJournal.pop();
-          const journalID = journal._id;
-          if (  
-            currentDate.getFullYear() === selectedFullDate2.getFullYear() &&
-            currentDate.getMonth() === selectedFullDate2.getMonth() &&
-            currentDate.getDate() === selectedFullDate2.getDate()
-          ) 
-          {
-            navigate('/journalpage');
-          }
-          else{
-          navigate(`/journal/${journalID}`);}
         }
-        
-      } catch (error) {
-        alert('error with fetching journals');
+      }));
+      if (currentJournal.length === 0) {
+        alert('No Journals were recoreded on this day.');
+      } else {
+        const journal = currentJournal.pop();
+        const jID = journal._id;
+        navigate(`/journal/${jID}`);
       }
     }
-    getJournalOfTheDay();
   };
+
 
   return (
     <div style={backgroundStyle}>
@@ -190,14 +168,14 @@ const HomePage = () => {
                 <th>Sat</th>
               </tr>
             </thead>
-            <tbody id="calendarBody" onClick={handleJournalPage}>
+            <tbody id="calendarBody" onClick={() => handleJournalPage()}>
             </tbody>
           </table>
 
           {checkIfJournalToday === null &&
             <button className="btn btn-secondary mt-3" onClick={() => navigate('/journalpage')}>New Journal for today</button>
           }
-          
+
         </div>
 
         {loggedInUser == null &&

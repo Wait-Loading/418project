@@ -25,6 +25,26 @@ app.post('/createJournal', async (req, res) => {
     }
 });
 
+app.put('/editJournal/:id', async (req, res) => {
+    const { id } = req.params;
+    const { title, text } = req.body;
+
+    try {
+        const journal = await Journal.findById(id);
+        if (!journal) {
+            return res.status(404).send({ error: "Journal Not Found" });
+        }
+
+        journal.journalTitle = title;
+        journal.journalText = text;
+
+        await journal.save();
+        res.send(journal);
+    } catch (error) {
+        res.status(500).send(error);
+    }
+});
+
 
 app.get('/getJournals', async (req, res) => {
     try {

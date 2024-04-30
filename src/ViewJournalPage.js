@@ -55,7 +55,7 @@ function ViewJournalPage() {
         axios.put(`http://localhost:9000/editJournal/${journal_id}`, data)
             .then((res) => alert('Changes Submitted!'))
             .catch((res) => alert('Error with submitting changes.'));
-        setStatus(true);
+        setStatus(false);
         setTitle('');
         setText('');
     };

@@ -40,17 +40,17 @@
 
 .navbar li a,
 .navbar li button {
-  color: #333;
+  color: #ffffff;
   text-decoration: none;
 }
 
 .navbar li a:hover,
 .navbar li button:hover {
-  color: #ff5e62;
+  color: #ffffff;
 }
 
 
-.dropbtn {
+/* .dropbtn {
   background-color: #333;
   color: #fff;
   border: none;
@@ -96,4 +96,47 @@
 
 .dropdown:hover .dropbtn {
   background-color: #555;
+} */
+
+.dropbtn {
+  background-color: #007bff; /* Blue */
+  color: white;
+  /* padding: 12px; */
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+/* On hover, add a darker background color */
+.dropbtn:hover {
+  background-color: #0056b3;  
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #6a6a6a;
+  width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(196, 41, 41, 0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content button {
+  color: white;
+  padding: 12px 16px;
+  width: 300px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content button:hover {
+  background-color: #ff5e62;
+}
+
+/* Show the dropdown menu on hover */
+.nav-item:hover .dropdown-content {
+  display: block;
 }

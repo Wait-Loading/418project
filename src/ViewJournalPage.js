@@ -128,6 +128,10 @@ function ViewJournalPage() {
         return null;
     };
 
+    const returnHome = () => {
+        navigate('/Home');
+      };
+
     return (
         <div className="journal-page">
             <div>
@@ -190,6 +194,10 @@ function ViewJournalPage() {
                     }
                 </div>
 
+            </div>
+            <br />
+            <div>
+                <button onClick={returnHome}>Home</button>
             </div>
         </div>
     );
